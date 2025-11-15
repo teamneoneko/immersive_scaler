@@ -35,26 +35,18 @@ def get_bone_worldspace_z(name, arm):
     return (arm.matrix_world @ get_bone(name, arm).head).z
 
 
-if hasattr(bpy.types.bpy_prop_array, "foreach_get") and bpy.app.version < (4, 1):
-    # Fast accessor method was added in Blender 2.83. While it's about 50 times slower without the fast accessor method,
-    # a bounding box is only an 8x3 array, so it's not going to make much difference.
-    def bound_box_to_co_array(obj: bpy.types.Object):
-        # Note that bounding boxes of objects correspond to the object with shape keys and modifiers applied
-        # Bounding boxes are 2D bpy_prop_array, each bounding box is represented by 8 (x, y, z) rows. Since this is a
-        # bpy_prop_array, the dtype must match the internal C type, otherwise an error is raised.
-        bb_co = np.empty((8, 3), dtype=np.single)
+def bound_box_to_co_array(obj: bpy.types.Object):
+    # Note that bounding boxes of objects correspond to the object with shape keys and modifiers applied
+    # Bounding boxes are 2D bpy_prop_array, each bounding box is represented by 8 (x, y, z) rows. Since this is a
+    # bpy_prop_array, the dtype must match the internal C type, otherwise an error is raised.
+    bb_co = np.empty((8, 3), dtype=np.single)
 
-        # Temporarily disabling modifiers to get a more accurate bounding box of the mesh and then re-enabling the
-        # modifiers would be far too performance heavy. Changing active shape key might be too heavy too. Though, even
-        # if we change the active shape key or modifiers in code, the bounding box doesn't seem to update right away.
-        obj.bound_box.foreach_get(bb_co)
+    # Temporarily disabling modifiers to get a more accurate bounding box of the mesh and then re-enabling the
+    # modifiers would be far too performance heavy. Changing active shape key might be too heavy too. Though, even
+    # if we change the active shape key or modifiers in code, the bounding box doesn't seem to update right away.
+    obj.bound_box.foreach_get(bb_co)
 
-        return bb_co
-
-else:
-
-    def bound_box_to_co_array(obj: bpy.types.Object):
-        return np.array(obj.bound_box, dtype=np.single)
+    return bb_co
 
 
 def _get_global_z_from_co_ndarray(v_co: np.ndarray, wm: mathutils.Matrix, func):

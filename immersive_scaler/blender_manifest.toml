@@ -1,16 +1,16 @@
 # wheee
 schema_version = "1.0.0"
 id = "immersive_scaler"
-version = "0.5.2"
+version = "0.6.0"
 name = "Immersive Scaler"
 tagline = "Fine tuned automated avatar scaling, for vrchat"
-maintainer = "Pager <pager@pager.codes>"
+maintainer = "Team Neoneko <https://github.com/teamneoneko>"
 # Supported types: "add-on", "theme"
 type = "add-on"
 
 tags = ["3D View", "Rigging"]
 
-blender_version_min = "2.81.0"
+blender_version_min = "5.0.0"
 
 license = [
   "SPDX:MIT",

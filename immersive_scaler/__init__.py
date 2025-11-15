@@ -1,11 +1,8 @@
 # Currently built with
 #
-# (global-set-key (kbd "C-c b") (lambda () (interactive) (shell-command "zip -r ../immersive_scaler.zip ../immersive_scaler")))
+# (global-set-key (kbd "C-c b") (lambda () (interactive) (shell-command "zip -r ../immersive_scaler.zip .")))
 #
-# Or for blender 4.2+
-#
-# (global-set-key (kbd "C-c b") (lambda () (interactive) (shell-command "zip -r ../immersive_scaler_4-2.zip .")))
-
+# For Blender 5.0+
 
 import importlib
 
@@ -25,16 +22,6 @@ from . import bones as bones
 # from .operations import ops_unregister
 # from .ui import ui_register
 # from .ui import ui_unregister
-
-
-bl_info = {
-    "name": "Immersive Scaler",
-    "category": "3D View",
-    "author": "pager",
-    "version": (0, 5, 1),
-    "blender": (2, 81, 0),
-    "location": "View3D",
-}
 
 
 def register():
