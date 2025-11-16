@@ -51,50 +51,24 @@ def get_all_armatures(self, context):
     ]
 
 
-if bpy.app.version >= (3, 2):
-    # Passing in context_override as a positional-only argument is deprecated as of Blender 3.2, replaced with
-    # Context.temp_override
-    def op_override(
-        operator,
-        context_override: dict[str, Any],
-        context: Optional[bpy.types.Context] = None,
-        execution_context: Optional[str] = None,
-        undo: Optional[bool] = None,
-        **operator_args
-    ) -> set[str]:
-        """Call an operator with a context override"""
-        args = []
-        if execution_context is not None:
-            args.append(execution_context)
-        if undo is not None:
-            args.append(undo)
+def op_override(
+    operator,
+    context_override: dict[str, Any],
+    context: Optional[bpy.types.Context] = None,
+    execution_context: Optional[str] = None,
+    undo: Optional[bool] = None,
+    **operator_args
+) -> set[str]:
+    """Call an operator with a context override"""
+    args = []
+    if execution_context is not None:
+        args.append(execution_context)
+    if undo is not None:
+        args.append(undo)
 
-        if context is None:
-            context = bpy.context
-        with context.temp_override(**context_override):
-            return operator(*args, **operator_args)
-
-else:
-
-    def op_override(
-        operator,
-        context_override: Dict[str, Any],
-        context: Optional[bpy.types.Context] = None,
-        execution_context: Optional[str] = None,
-        undo: Optional[bool] = None,
-        **operator_args
-    ) -> Set[str]:
-        """Call an operator with a context override"""
-        if context is not None:
-            context_base = context.copy()
-            context_base.update(context_override)
-            context_override = context_base
-        args = [context_override]
-        if execution_context is not None:
-            args.append(execution_context)
-        if undo is not None:
-            args.append(undo)
-
+    if context is None:
+        context = bpy.context
+    with context.temp_override(**context_override):
         return operator(*args, **operator_args)
 
 
@@ -234,12 +208,6 @@ def children_recursive(obj: bpy.types.Object) -> List[bpy.types.Object]:
 
 
 class ArmatureOperator(bpy.types.Operator):
-    # poll_message_set was added in 3.0
-    if not hasattr(bpy.types.Operator, "poll_message_set"):
-
-        @classmethod
-        def poll_message_set(cls, message, *args):
-            pass
 
     @classmethod
     def poll(cls, context: bpy.types.Context) -> bool:

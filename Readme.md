@@ -29,11 +29,11 @@ https://user-images.githubusercontent.com/6687043/134242292-bbbb7803-377b-440f-8
 
 ## Installation
 
-Installation is the same as most other blender plugins. Supports
-Blender >=2.81, including 3.0.
+Installation is the same as most other blender plugins. Requires
+Blender 5.0 or newer.
 
 Go to the
-[releases](https://github.com/triazo/immersive_scaler/releases) page,
+[releases](https://github.com/teamneoneko/immersive_scaler/releases) page,
 and download the latest `.zip` file. Then, in Blender, go to
 Edit->Preferences, and select 'Add-ons'. On the top, hit 'Install',
 navigate to the downloaded `.zip` file, select, and install it.
@@ -55,11 +55,7 @@ re-enable it.
 
 ## Usage
 
-First, it's recommended to install the CATS plugin.
-
-Import your avatar, use the CATS fix (no arguments necessary,
-I've just observed weird behavior when run against armatures without
-this), and hit the 'Rescale Armature' button. Tweak options as necessary.
+Import your avatar into Blender and select the armature. Then, in the 'IMScale' tab on the right side of the 3D viewport, click the 'Rescale Armature' button. Tweak options as necessary to match your desired proportions.
 
 
 ![UI](https://triazo.net/files/screenie_2023-01-26_22-28-48.png)
@@ -185,9 +181,16 @@ Either clone or download this repository, then create a zip of the
 `immersive_scaler` directory. This zip is the same as what's
 downloaded from the releases page.
 
+## Credits
+
+**Original Author:** [Pager](https://github.com/triazo)
+
+**Current Maintainers:** [Team Neoneko](https://github.com/teamneoneko)
+
 ## Contact
 
-If you have any questions, encounter an error, or just want to say hi,
-send me a ping on discord at pager#0001.
+For questions, bug reports, or contributions, please open an issue on [GitHub](https://github.com/teamneoneko/immersive_scaler/issues).
+
+You can also reach us on [Discord](https://discord.neoneko.xyz/).
 
 If you like this plugin and think it's useful, spread the word!

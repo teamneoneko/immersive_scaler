@@ -78,22 +78,13 @@ def _apply_armature_to_mesh_with_no_shape_keys(armature_obj, mesh_obj, preserve_
     context_override = {"object": mesh_obj}
     # Moving the modifier to the first index will prevent an Info message about the applied modifier not being
     # first and potentially having unexpected results.
-    if bpy.app.version >= (2, 90, 0):
-        # modifier_move_to_index was added in Blender 2.90
-        op_override(
-            bpy.ops.object.modifier_move_to_index,
-            context_override,
-            modifier=mod_name,
-            index=0,
-        )
-    else:
-        # The newly created modifier will be at the bottom of the list
-        armature_mod_index = len(mesh_obj.modifiers) - 1
-        # Move the modifier up until it's at the top of the list
-        for _ in range(armature_mod_index):
-            op_override(
-                bpy.ops.object.modifier_move_up, context_override, modifier=mod_name
-            )
+    # modifier_move_to_index was added in Blender 2.90
+    op_override(
+        bpy.ops.object.modifier_move_to_index,
+        context_override,
+        modifier=mod_name,
+        index=0,
+    )
     op_override(bpy.ops.object.modifier_apply, context_override, modifier=mod_name)
 
 
