@@ -39,12 +39,15 @@ def bound_box_to_co_array(obj: bpy.types.Object):
     # Note that bounding boxes of objects correspond to the object with shape keys and modifiers applied
     # Bounding boxes are 2D bpy_prop_array, each bounding box is represented by 8 (x, y, z) rows. Since this is a
     # bpy_prop_array, the dtype must match the internal C type, otherwise an error is raised.
-    bb_co = np.empty((8, 3), dtype=np.single)
+    bb_co = np.empty(8 * 3, dtype=np.single)
 
     # Temporarily disabling modifiers to get a more accurate bounding box of the mesh and then re-enabling the
     # modifiers would be far too performance heavy. Changing active shape key might be too heavy too. Though, even
     # if we change the active shape key or modifiers in code, the bounding box doesn't seem to update right away.
     obj.bound_box.foreach_get(bb_co)
+    
+    # Reshape to (8, 3) for easier processing
+    bb_co.shape = (8, 3)
 
     return bb_co
 
